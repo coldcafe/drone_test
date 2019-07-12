@@ -2,13 +2,17 @@ kind: pipeline
 name: default
 
 steps:
-- name: start
-  image: node
-  detach: true
+- name: test
+  image: mysql
   commands:
-  - npm install
-  - npm build
-  - npm start
-  when:
-    branch:
-    - master
+  - sleep 15
+  - mysql -u root -h database --execute="SELECT VERSION();"
+
+services:
+- name: database
+  image: mysql
+  ports:
+  - 3306
+  environment:
+    MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    MYSQL_DATABASE: test
