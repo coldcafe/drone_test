@@ -1,0 +1,16 @@
+kind: pipeline
+name: default
+
+steps:
+- name: start
+  image: node
+  detach: true
+  commands:
+  - npm install
+  - npm build
+  - npm start
+  when:
+    branch:
+    - master
+  ports:
+  - 3000
