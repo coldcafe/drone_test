@@ -12,5 +12,3 @@ steps:
   when:
     branch:
     - master
-  ports:
-  - 3000
