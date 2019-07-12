@@ -2,13 +2,16 @@ kind: pipeline
 name: default
 
 steps:
-- name: start
-  image: node
-  detach: true
+- name: test
+  image: redis
   commands:
-  - npm install
-  - npm build
-  - npm start
-  when:
-    branch:
-    - master
+  - sleep 5
+  - redis-cli -h redis ping
+  - redis-cli -h redis set FOO bar
+  - redis-cli -h redis get FOO
+
+services:
+- name: redis
+  image: redis
+  ports:
+  - 6379
